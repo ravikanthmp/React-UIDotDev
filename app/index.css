@@ -5,3 +5,24 @@ body{
 a{
     background: yellow;
 }
+
+.container{
+    background: aqua;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+li{
+    list-style-type: none;
+}
+
+.btn-clear{
+    border: none;
+    background: transparent;
+}
