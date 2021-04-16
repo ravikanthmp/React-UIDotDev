@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
 import {Link} from "./link";
+import Popular from './components/popular'
 
 
 class Hello extends React.Component {
@@ -15,13 +16,13 @@ class Hello extends React.Component {
         const name = this.props.name;
         const link = this.props.link;
         return (
-            <React.Fragment>
-                <p>name</p>
-                <Link link={link} other={<h3>Hi There!</h3>}/>
-            </React.Fragment>
+            <div className="container">
+                <Popular languages={['All', 'Java', 'JavaScript', 'PHP']}/>
+            </div>
         )
 
     }
+
 }
 
 ReactDOM.render(
