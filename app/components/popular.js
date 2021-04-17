@@ -82,6 +82,10 @@ export default class Popular extends React.Component{
         return this.state.repos == null && this.state.error == null;
     }
 
+    componentDidMount() {
+        this.updateLanguage(this.state.selectedLanguage)
+    }
+
     render() {
 
         return <React.Fragment>
