@@ -12,9 +12,8 @@ export default class Popular extends React.Component{
 
         this.state = {
             selectedLanguage : 'All',
-            repos : null,
+            repos : {},
             error : null,
-            savedRepos : {}
         }
 
         this.updateLanguage = this.updateLanguage.bind(this)
@@ -24,38 +23,36 @@ export default class Popular extends React.Component{
     updateLanguage(lang){
         this.setState({
             selectedLanguage : lang,
-            repos : null,
             error : null
         })
 
-        const {savedRepos} = this.state;
-        if (!savedRepos[lang]){
+        const savedRepos = this.state.repos[lang];
+        if (!savedRepos){
             console.log(`fetching from github. current state is ` + JSON.stringify(this.state, null,  2))
             this.fetchRepos(lang)
-                .then(repos => {
-                    const {savedRepos} = this.state;
-                    savedRepos[lang] = repos;
-                    this.setState({
-                        selectedLanguage : lang,
-                        repos : repos,
-                        savedRepos : savedRepos,
-                        error : null
-                    })
-                })
+                .then(data => {
+                        this.setState( ({repos}) => {
+                            repos[lang] = data;
+                            return {
+                                selectedLanguage : lang,
+                                error : null,
+                                repos : {
+                                    ...repos,
+                                    [lang] : data
+                                }
+                            }
+                        })
+                    }
+                )
                 .catch(err => {
                     this.setState({
                         selectedLanguage : lang,
-                        repos : null,
                         error : err
                     })
                 })
         }else {
             console.log(`fetching from cache. current state is ` + JSON.stringify(this.state, null, 2))
-            this.setState({
-                selectedLanguage : lang,
-                repos : savedRepos[lang],
-                error : null
-            })
+            return savedRepos;
         }
     }
 
@@ -72,7 +69,8 @@ export default class Popular extends React.Component{
     }
 
     isLoading(){
-        return this.state.repos == null && this.state.error == null;
+        let {repos, selectedLanguage, error} = this.state
+        return !repos[selectedLanguage] && !error
     }
 
     componentDidMount() {
@@ -82,7 +80,7 @@ export default class Popular extends React.Component{
     render() {
 
         return <React.Fragment>
-                <PopularUI languages={['Java', 'C']} updateLanguage={this.updateLanguage} selectedLanguage={this.state.selectedLanguage} isLoading={this.isLoading}/>
+                <PopularUI languages={['Java', 'C', 'halala']} updateLanguage={this.updateLanguage} selectedLanguage={this.state.selectedLanguage} isLoading={this.isLoading}/>
                 {this.isLoading() && <p>Loading!</p>}
                 {!this.isLoading() && <p>{JSON.stringify(this.state.repos)}</p>}
             </React.Fragment>
