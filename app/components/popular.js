@@ -4,6 +4,7 @@ import LangAsButton from "./langButton";
 import fetchFromGithub from "./../utils/util"
 import fetchRepos from "./../utils/util";
 import PropTypes from 'prop-types'
+import {FaGrinBeamSweat} from 'react-icons/fa'
 
 export default class Popular extends React.Component{
 
@@ -74,16 +75,20 @@ export default class Popular extends React.Component{
     }
 
     componentDidMount() {
+        console.log(`component did mount!`)
         this.updateLanguage(this.state.selectedLanguage)
     }
 
     render() {
 
-        return <React.Fragment>
-                <PopularUI languages={['Java', 'C', 'halala']} updateLanguage={this.updateLanguage} selectedLanguage={this.state.selectedLanguage} isLoading={this.isLoading}/>
+        const {repos, selectedLanguage, error} = this.state
+        console.log(JSON.stringify(this.state, null, 2))
+        return (<React.Fragment>
+                <PopularUI languages={['Java', 'C', 'All']} updateLanguage={this.updateLanguage} selectedLanguage={selectedLanguage} isLoading={this.isLoading}/>
+
                 {this.isLoading() && <p>Loading!</p>}
-                {!this.isLoading() && <p>{JSON.stringify(this.state.repos)}</p>}
-            </React.Fragment>
+                <ReposGrid repos={repos[selectedLanguage]}/>
+            </React.Fragment>)
 
     }
 }
@@ -109,4 +114,36 @@ function PopularUI({languages, updateLanguage, selectedLanguage, isLoading}) {
 
 Popular.propTypes = {
     languages : PropTypes.arrayOf(PropTypes.string).isRequired
+}
+
+
+function ReposGrid({repos}){
+    if (!repos){
+        return null;
+    }
+    return (
+        <ul className={'grid-container space-around'}>
+            {repos.map((repo, index) => {
+
+                const {id, name, owner, html_url, open_issues_count, stargazers_count, forks} = repo;
+                const {avatar_url} = owner;
+                return (<li className={'grid-cell'} key={id}>
+                    <p>{index}</p>
+                    <img src={avatar_url} style={{width : '100%'}}/>
+                    <a href={html_url}>{name}</a>
+                    <h3>{name}</h3>
+                    <h3>Stars : {stargazers_count}</h3>
+                    <h3>Forks : {forks}</h3>
+                    <h3>Open Issues : {open_issues_count}</h3>
+
+                </li>
+                )
+            } )}
+        </ul>
+
+    )
+}
+
+ReposGrid.propTypes = {
+    repos : PropTypes.arrayOf(PropTypes.object).isRequired
 }
