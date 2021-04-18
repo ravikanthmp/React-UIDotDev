@@ -5,28 +5,6 @@ import fetchFromGithub from "./../utils/util"
 import fetchRepos from "./../utils/util";
 import PropTypes from 'prop-types'
 
-function LanguageNavBar({langs, updateLanguage, getLanguage}){
-
-    console.log(`this is ${this}`)
-    return (
-        <ul className="flex-center">
-            {langs.map(
-                lang =>
-                    <li key={lang}>
-                        <button className="btn-clear nav-link"
-                                onClick={() => updateLanguage(lang)}
-                                style={getLanguage() === lang ? {color : 'red'} : {color : null}}
-                        >
-                            {lang}
-                        </button>
-                    </li>
-            )
-            }
-        </ul>
-    )
-
-}
-
 export default class Popular extends React.Component{
 
     constructor(props, context) {
@@ -35,7 +13,8 @@ export default class Popular extends React.Component{
         this.state = {
             selectedLanguage : 'All',
             repos : null,
-            error : null
+            error : null,
+            savedRepos : {}
         }
 
         this.updateLanguage = this.updateLanguage.bind(this)
@@ -49,21 +28,35 @@ export default class Popular extends React.Component{
             error : null
         })
 
-        this.fetchRepos(lang)
-            .then(repos => {
-                this.setState({
-                    selectedLanguage : lang,
-                    repos : repos,
-                    error : null
+        const {savedRepos} = this.state;
+        if (!savedRepos[lang]){
+            console.log(`fetching from github. current state is ` + JSON.stringify(this.state, null,  2))
+            this.fetchRepos(lang)
+                .then(repos => {
+                    const {savedRepos} = this.state;
+                    savedRepos[lang] = repos;
+                    this.setState({
+                        selectedLanguage : lang,
+                        repos : repos,
+                        savedRepos : savedRepos,
+                        error : null
+                    })
                 })
-            })
-            .catch(err => {
-                this.setState({
-                    selectedLanguage : lang,
-                    repos : null,
-                    error : err
+                .catch(err => {
+                    this.setState({
+                        selectedLanguage : lang,
+                        repos : null,
+                        error : err
+                    })
                 })
+        }else {
+            console.log(`fetching from cache. current state is ` + JSON.stringify(this.state, null, 2))
+            this.setState({
+                selectedLanguage : lang,
+                repos : savedRepos[lang],
+                error : null
             })
+        }
     }
 
     fetchRepos(lang){
