@@ -26,3 +26,10 @@ li{
     border: none;
     background: transparent;
 }
+
+.grid-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-column-gap: 20fr;
+    align-items: center;
+}
