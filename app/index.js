@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
-import {Link} from "./link";
-import Popular from './components/popular'
+import Battle from "./components/battle";
+import Myform from "./components/myform";
+import PlayerInput from "./components/playerInput";
 
 
 class Hello extends React.Component {
@@ -17,8 +18,11 @@ class Hello extends React.Component {
         const link = this.props.link;
         return (
             <div className="container">
-                <Popular languages={['All', 'Java', 'JavaScript', 'PHP']}/>
+                {/*<Popular languages={['All', 'Java', 'JavaScript', 'PHP']}/>*/}
+                <Battle/>
+
             </div>
+
         )
 
     }

@@ -4,7 +4,7 @@ import LangAsButton from "./langButton";
 import fetchFromGithub from "./../utils/util"
 import fetchRepos from "./../utils/util";
 import PropTypes from 'prop-types'
-import {FaGrinBeamSweat} from 'react-icons/fa'
+import {FaCodeBranch, FaExclamationTriangle, FaGrinBeamSweat, FaStar, FaUser} from 'react-icons/fa'
 
 export default class Popular extends React.Component{
 
@@ -126,19 +126,38 @@ function ReposGrid({repos}){
             {repos.map((repo, index) => {
 
                 const {id, name, owner, html_url, open_issues_count, stargazers_count, forks} = repo;
-                const {avatar_url} = owner;
+                const {avatar_url, login} = owner;
                 return (<li className={'grid-cell'} key={id}>
-                    <p>{index}</p>
-                    <img src={avatar_url} style={{width : '100%'}}/>
-                    <a href={html_url}>{name}</a>
-                    <h3>{name}</h3>
-                    <h3>Stars : {stargazers_count}</h3>
-                    <h3>Forks : {forks}</h3>
-                    <h3>Open Issues : {open_issues_count}</h3>
+                    <h1 className='center-text'>{index}</h1>
+                    <img src={avatar_url} className='avatar'/>
+                    <a href={html_url}>
+                        <h2 className={'center-text'}>{login}</h2>
+                    </a>
+                    <ul>
+                        <li>
+                            <FaUser size={22} />
+                            {name}
+                        </li>
 
+                        <li>
+                            <FaStar size={22} />
+                            {stargazers_count}
+                        </li>
+
+                        <li>
+                            <FaCodeBranch size={22} />
+                            {forks}
+                        </li>
+
+                        <li>
+                            <FaExclamationTriangle size={22} />
+                            {open_issues_count}
+                        </li>
+
+                    </ul>
                 </li>
                 )
-            } )}
+            })}
         </ul>
 
     )

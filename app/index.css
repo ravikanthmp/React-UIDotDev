@@ -1,13 +1,8 @@
-body{
-    background: green;
-}
-
 a{
     background: yellow;
 }
 
 .container{
-    background: aqua;
     width: 1200px;
     margin: 0 auto;
 }
@@ -31,5 +26,29 @@ li{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-column-gap: 20fr;
+    justify-content: center;
     align-items: center;
+}
+
+.avatar{
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+    margin: 0 auto;
+}
+
+.center-text{
+    text-align: center;
+}
+
+.battle-container{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.battle-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    place-items: center;
 }
