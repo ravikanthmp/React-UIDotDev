@@ -66,6 +66,48 @@ export default class Results extends React.Component{
             })
     }
 
+    createPlayer(player, winnerOrLoser){
+        const {name, location, company, followers, following} = player.profile;
+        return <Player playerProfile={player.profile} winnerLoser={winnerOrLoser} score={player.score}>
+            <ul style={{justifySelf: 'center'}}>
+                <li>
+                    <FaUser size={22}/>
+                    {name}
+                </li>
+
+                {{location} && (<li>
+                    <FaStar size={22}/>
+                    {location}
+                </li>)}
+
+                {{company} && (<li>
+                    <FaCodeBranch size={22}/>
+                    {company}
+                </li>)}
+
+                {{followers} && (<li>
+                    <FaExclamationTriangle size={22}/>
+                    {followers}
+                </li>)}
+
+                {{following} && (<li>
+                    <FaExclamationTriangle size={22}/>
+                    {following}
+                </li>)}
+            </ul>
+        </Player>
+    }
+
+    figureWinner(mine, other){
+        if (mine === other){
+            return "Tie"
+        }else if (mine > other){
+            return "Winner"
+        }else {
+            return "Loser"
+        }
+    }
+
     render() {
         const {player1, player2, error, loading} = this.state
         if (error){
@@ -73,24 +115,15 @@ export default class Results extends React.Component{
         }else if (loading){
             return <div><h1>Loading</h1></div>
         }else {
-            if (player1.score > player2.score){
-                return (<div className='battle-grid grid-stretch'>
-                    <Player playerProfile={player1.profile} winnerLoser='Winner' score={player1.score}/>
-                    <Player playerProfile={player2.profile} winnerLoser='Loser' score={player2.score}/>
-                </div>)
-            }else if (player1.score < player2.score){
-                return (<div className='battle-grid grid-stretch'>
-                    <Player playerProfile={player1.profile} winnerLoser='Loser' score={player1.score}/>
-                    <Player playerProfile={player2.profile} winnerLoser='Winner' score={player2.score}/>
-                </div>)
-            }else {
-                return (<div className='battle-grid grid-stretch'>
-                    <Player playerProfile={player1.profile} winnerLoser='TIE' score={player1.score}/>
-                    <Player playerProfile={player2.profile} winnerLoser='TIE' score={player2.score}/>
-                </div>)
-            }
-        }
 
+            const player1Component = this.createPlayer(player1, this.figureWinner(player1.score, player2.score))
+            const player2Component = this.createPlayer(player2, this.figureWinner(player2.score, player1.score))
+
+            return <div className='battle-grid grid-stretch'>
+                <div>{player1Component}</div>
+                <div>{player2Component}</div>
+            </div>
+        }
     }
 
     getStarCount(data) {
@@ -99,7 +132,7 @@ export default class Results extends React.Component{
 
 }
 
-function Player({playerProfile, winnerLoser, score}) {
+function Player({playerProfile, winnerLoser, score, children}) {
     const {name, avatar_url, login, location, company, followers, following, html_url} = playerProfile;
     return (<li className={'grid-cell'} key={name}>
         <h1 className='center-text'>{winnerLoser}</h1>
@@ -108,31 +141,6 @@ function Player({playerProfile, winnerLoser, score}) {
         <a href={html_url}>
             <h2 className={'center-text'}>{login}</h2>
         </a>
-        <ul style={{justifySelf:'center'}}>
-            <li>
-                <FaUser size={22} />
-                {name}
-            </li>
-
-            {{location} &&  (<li>
-                <FaStar size={22} />
-                {location}
-            </li>)}
-
-            {{company} && (<li>
-                <FaCodeBranch size={22} />
-                {company}
-            </li>)}
-
-            {{followers} && (<li>
-                <FaExclamationTriangle size={22} />
-                {followers}
-            </li>)}
-
-            {{following} && (<li>
-                <FaExclamationTriangle size={22} />
-                {following}
-            </li>)}
-        </ul>
+        {children}
     </li>)
 }
