@@ -66,38 +66,6 @@ export default class Results extends React.Component{
             })
     }
 
-    createPlayer(player, winnerOrLoser){
-        const {name, location, company, followers, following} = player.profile;
-        return <Player playerProfile={player.profile} winnerLoser={winnerOrLoser} score={player.score}>
-            <ul style={{justifySelf: 'center'}}>
-                <li>
-                    <FaUser size={22}/>
-                    {name}
-                </li>
-
-                {{location} && (<li>
-                    <FaStar size={22}/>
-                    {location}
-                </li>)}
-
-                {{company} && (<li>
-                    <FaCodeBranch size={22}/>
-                    {company}
-                </li>)}
-
-                {{followers} && (<li>
-                    <FaExclamationTriangle size={22}/>
-                    {followers}
-                </li>)}
-
-                {{following} && (<li>
-                    <FaExclamationTriangle size={22}/>
-                    {following}
-                </li>)}
-            </ul>
-        </Player>
-    }
-
     figureWinner(mine, other){
         if (mine === other){
             return "Tie"
@@ -115,13 +83,13 @@ export default class Results extends React.Component{
         }else if (loading){
             return <div><h1>Loading</h1></div>
         }else {
-
-            const player1Component = this.createPlayer(player1, this.figureWinner(player1.score, player2.score))
-            const player2Component = this.createPlayer(player2, this.figureWinner(player2.score, player1.score))
-
             return <div className='battle-grid grid-stretch'>
-                <div>{player1Component}</div>
-                <div>{player2Component}</div>
+                <Player playerProfile={player1.profile} winnerLoser={this.figureWinner(player1.score, player2.score)} score={player1.score}>
+                    <ProfileItems playerProfile={player1.profile}/>
+                </Player>
+                <Player playerProfile={player2.profile} winnerLoser={this.figureWinner(player2.score, player1.score)} score={player2.score}>
+                    <ProfileItems playerProfile={player2.profile}/>
+                </Player>
             </div>
         }
     }
@@ -133,7 +101,7 @@ export default class Results extends React.Component{
 }
 
 function Player({playerProfile, winnerLoser, score, children}) {
-    const {name, avatar_url, login, location, company, followers, following, html_url} = playerProfile;
+    const {name, avatar_url, login, html_url} = playerProfile;
     return (<li className={'grid-cell'} key={name}>
         <h1 className='center-text'>{winnerLoser}</h1>
         <img src={avatar_url} className='avatar'/>
@@ -143,4 +111,35 @@ function Player({playerProfile, winnerLoser, score, children}) {
         </a>
         {children}
     </li>)
+}
+
+function ProfileItems({playerProfile}){
+    const {name, location, company, followers, following} = playerProfile;
+    console.log(`name is ${name}` )
+    return (  <ul style={{justifySelf: 'center'}}>
+       <li>
+           <FaUser size={22}/>
+           {name}
+       </li>
+
+       {{location} && (<li>
+           <FaStar size={22}/>
+           {location}
+       </li>)}
+
+       {{company} && (<li>
+           <FaCodeBranch size={22}/>
+           {company}
+       </li>)}
+
+       {{followers} && (<li>
+           <FaExclamationTriangle size={22}/>
+           {followers}
+       </li>)}
+
+       {{following} && (<li>
+           <FaExclamationTriangle size={22}/>
+           {following}
+       </li>)}
+   </ul>)
 }
