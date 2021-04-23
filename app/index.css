@@ -38,6 +38,14 @@ li{
     margin: 0 auto;
 }
 
+.avatar-small{
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 3px;
+    margin: 0 auto;
+}
+
 .center-text{
     text-align: center;
 }
@@ -47,8 +55,25 @@ li{
     width: 80%;
 }
 
+.grid-centered{
+    place-items: center;
+}
+
+.grid-stretch{
+    place-items: stretch;
+}
+
 .battle-grid{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    place-items: center;
+}
+
+.battle-grid-fixed{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0.5fr;
+}
+
+.bg-gray{
+    background: lightgoldenrodyellow;
 }

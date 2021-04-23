@@ -7,3 +7,8 @@ export function fetchUser(userName){
     const endpoint = `http://api.github.com/users/${userName}`
     return fetch(endpoint);
 }
+
+export function fetchReposForUser(userName){
+    const endpoint = `http://api.github.com/users/${userName}/repos`
+    return fetch(endpoint);
+}

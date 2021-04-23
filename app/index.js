@@ -4,6 +4,7 @@ import './index.css'
 import Battle from "./components/battle";
 import Myform from "./components/myform";
 import PlayerInput from "./components/playerInput";
+import Popular from "./components/popular";
 
 
 class Hello extends React.Component {
