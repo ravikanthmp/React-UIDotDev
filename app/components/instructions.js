@@ -11,6 +11,7 @@ export class Instructions extends React.Component {
         this.state = {battle : false}
         this.handlePlayerSubmission = this.handlePlayerSubmission.bind(this)
         this.onReset = this.onReset.bind(this)
+        this.resetBattle = this.resetBattle.bind(this)
     }
 
     handlePlayerSubmission(id, playername){
@@ -23,6 +24,10 @@ export class Instructions extends React.Component {
         this.setState({
             [player] : null
         })
+    }
+
+    resetBattle(){
+        this.setState({battle : false})
     }
 
     render() {
@@ -43,7 +48,7 @@ export class Instructions extends React.Component {
                 <div  className='battle-grid grid-centered'>{player1 && player2 && <button onClick={() => this.setState({battle:true})}>Battle!</button>} </div>
             </div>)
         }else {
-            return (<Results player1={player1} player2={player2}/>)
+            return (<Results player1={player1} player2={player2} onReset={this.resetBattle}/>)
         }
     }
 

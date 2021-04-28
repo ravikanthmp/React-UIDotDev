@@ -83,13 +83,16 @@ export default class Results extends React.Component{
         }else if (loading){
             return <div><h1>Loading</h1></div>
         }else {
-            return <div className='battle-grid grid-stretch'>
-                <Player playerProfile={player1.profile} winnerLoser={this.figureWinner(player1.score, player2.score)} score={player1.score}>
-                    <ProfileItems playerProfile={player1.profile}/>
-                </Player>
-                <Player playerProfile={player2.profile} winnerLoser={this.figureWinner(player2.score, player1.score)} score={player2.score}>
-                    <ProfileItems playerProfile={player2.profile}/>
-                </Player>
+            return <div>
+                <div className='battle-grid grid-stretch'>
+                    <Player playerProfile={player1.profile} winnerLoser={this.figureWinner(player1.score, player2.score)} score={player1.score}>
+                        <ProfileItems playerProfile={player1.profile}/>
+                    </Player>
+                    <Player playerProfile={player2.profile} winnerLoser={this.figureWinner(player2.score, player1.score)} score={player2.score}>
+                        <ProfileItems playerProfile={player2.profile}/>
+                    </Player>
+                </div>
+                <button onClick={this.props.onReset}>Reset</button>
             </div>
         }
     }
