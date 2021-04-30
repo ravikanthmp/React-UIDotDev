@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {fetchUser, fetchReposForUser} from './../utils/util'
-import {FaCodeBranch, FaExclamationTriangle, FaStar, FaUser} from "react-icons/fa";
+import {fetchReposForUser, fetchUser} from './../utils/util'
+import Loading from "./loading";
+import {ProfileItems} from "./profileItems";
 
 export default class Results extends React.Component{
 
@@ -81,7 +81,7 @@ export default class Results extends React.Component{
         if (error){
             return <div><h1>Error</h1></div>
         }else if (loading){
-            return <div><h1>Loading</h1></div>
+            return <Loading/>
         }else {
             return <div>
                 <div className='battle-grid grid-stretch'>
@@ -116,33 +116,3 @@ function Player({playerProfile, winnerLoser, score, children}) {
     </li>)
 }
 
-function ProfileItems({playerProfile}){
-    const {name, location, company, followers, following} = playerProfile;
-    console.log(`name is ${name}` )
-    return (  <ul style={{justifySelf: 'center'}}>
-       <li>
-           <FaUser size={22}/>
-           {name}
-       </li>
-
-       {{location} && (<li>
-           <FaStar size={22}/>
-           {location}
-       </li>)}
-
-       {{company} && (<li>
-           <FaCodeBranch size={22}/>
-           {company}
-       </li>)}
-
-       {{followers} && (<li>
-           <FaExclamationTriangle size={22}/>
-           {followers}
-       </li>)}
-
-       {{following} && (<li>
-           <FaExclamationTriangle size={22}/>
-           {following}
-       </li>)}
-   </ul>)
-}

@@ -32,7 +32,7 @@ export default class PlayerPreview extends React.Component {
     render() {
         let {playerName} = this.props;
 
-        return (<div className='battle-grid-fixed bg-gray'>
+        return (<div className='battle-grid-fixed bg-gray' style={{backgroundColor : this.props.backgroundColor}}>
             <div>
                 <img src={this.state.avatarUrl} alt='image of user' className='avatar-small'/>
             </div>
@@ -45,3 +45,4 @@ export default class PlayerPreview extends React.Component {
 }
 
 PlayerPreview.propTypes = {playerName: PropTypes.any}
+PlayerPreview.defaultProps = {backgroundColor : "yellow"}
