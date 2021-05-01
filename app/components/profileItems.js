@@ -2,6 +2,7 @@ import {FaCodeBranch, FaExclamationTriangle, FaStar, FaUser} from "react-icons/f
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import * as PropTypes from "prop-types";
+import Tooltip from "./tooltip";
 
 export class ProfileItems extends React.Component {
 
@@ -11,18 +12,6 @@ export class ProfileItems extends React.Component {
         this.state = {
             location : false
         }
-    }
-
-    onMouseOver(id){
-        this.setState({
-            [id] : true
-        })
-    }
-
-    onMouseOut(id){
-        this.setState({
-            [id] : false
-        })
     }
 
     render() {
@@ -35,17 +24,10 @@ export class ProfileItems extends React.Component {
                 {name}
             </li>
 
-            {{location} && (<div onMouseOver={() => this.onMouseOver('location')} onMouseLeave={() => this.onMouseOut('location')}>
-                <li data-tip data-for="registerTip">
-                    <FaStar size={22}/>
-                    {location}
-                </li>
-
-                <ReactTooltip id="registerTip" place="top" effect="solid">
-                    Tooltip for the location button
-                </ReactTooltip>
-
-            </div>)}
+            {{location} && (<Tooltip>
+                <FaStar size={22}/>
+                {location}
+            </Tooltip>)}
 
             {{company} && (<li>
                 <FaCodeBranch size={22}/>
