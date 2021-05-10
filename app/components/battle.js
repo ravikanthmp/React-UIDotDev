@@ -2,6 +2,7 @@ import React from "react";
 import {FaUserFriends, FaFighterJet, FaTrophy} from "react-icons/fa"
 import PlayerInput from "./playerInput";
 import {Instructions} from "./instructions";
+import {LocaleContext} from "./localeContext";
 
 export default class Battle extends React.Component{
 
@@ -11,22 +12,16 @@ export default class Battle extends React.Component{
                 <h1>Instructions</h1>
                 <div className='battle-container'>
 
-                    <div className='battle-grid'>
-                        <div>
-                            <h3>Enter Two Github Users</h3>
-                            <FaUserFriends size={140}/>
-                        </div>
+                    <LocaleContext.Consumer>
+                        {
+                            (data) => <button onClick={() => this.changeLang(data, 'it')}>Click for italian</button>}
+                    </LocaleContext.Consumer>
 
-                        <div>
-                            <h3>Battle</h3>
-                            <FaFighterJet size={140}/>
-                        </div>
-
-                        <div>
-                            <h3>See the Winner</h3>
-                            <FaTrophy size={140}/>
-                        </div>
-                    </div>
+                    <LocaleContext.Consumer>
+                        {
+                            (data) =>  <Logos locale={data}/>
+                        }
+                    </LocaleContext.Consumer>
 
                     <Instructions/>
 
@@ -36,5 +31,77 @@ export default class Battle extends React.Component{
         )
     }
 
+    changeLang(data, lang) {
+        data.toggle(lang)
+    }
+}
+
+function Logos_IT() {
+    return  <div className='battle-grid'>
+        <div>
+            <h3>la italia Gitub Users</h3>
+            <FaUserFriends size={140}/>
+        </div>
+
+        <div>
+            <h3>la italia  Battle</h3>
+            <FaFighterJet size={140}/>
+        </div>
+
+        <div>
+            <h3> la italia See the Winner</h3>
+            <FaTrophy size={140}/>
+        </div>
+    </div>
+}
+
+function Logos({locale}){
+
+    if (locale.locale === 'es'){
+      return <Logos_ES/>
+    }else if (locale.locale == 'it'){
+        return <Logos_IT/>
+    } else {
+        return <Logos_EN/>
+    }
+
+}
+
+function Logos_EN(){
+    return  <div className='battle-grid'>
+        <div>
+            <h3>Enter Two Github Users</h3>
+            <FaUserFriends size={140}/>
+        </div>
+
+        <div>
+            <h3>Battle</h3>
+            <FaFighterJet size={140}/>
+        </div>
+
+        <div>
+            <h3>See the Winner</h3>
+            <FaTrophy size={140}/>
+        </div>
+    </div>
+}
+
+function Logos_ES(){
+    return  <div className='battle-grid'>
+        <div>
+            <h3>espaniol name</h3>
+            <FaUserFriends size={140}/>
+        </div>
+
+        <div>
+            <h3>espaniol jet</h3>
+            <FaFighterJet size={140}/>
+        </div>
+
+        <div>
+            <h3>espaniol winner</h3>
+            <FaTrophy size={140}/>
+        </div>
+    </div>
 }
 
