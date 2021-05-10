@@ -14,7 +14,7 @@ export default class Battle extends React.Component{
 
                     <LocaleContext.Consumer>
                         {
-                            (data) => <button onClick={() => this.changeLang(data, 'it')}>Click for italian</button>}
+                            (data) => <button onClick={() => this.changeLang(data, 'es')}>Click for spanish</button>}
                     </LocaleContext.Consumer>
 
                     <LocaleContext.Consumer>

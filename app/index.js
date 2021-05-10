@@ -13,15 +13,14 @@ class Hello extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            locale : 'es'
-        }
+            locale : 'it',
+            toggle : (lang) => this.setState( ({locale}) => ({locale : lang}))}
     }
 
     render() {
         const name = this.props.name;
         const link = this.props.link;
-        return (
-            <LocaleContext.Provider value={{locale : this.state.locale, toggle : (lang) => this.setState( ({locale}) => ({locale : lang}))}}>
+        return (<LocaleContext.Provider value={this.state}>
                 <div className="container">
                     {/*<Popular languages={['All', 'Java', 'JavaScript', 'PHP']}/>*/}
                     <Battle/>
@@ -30,9 +29,7 @@ class Hello extends React.Component {
             </LocaleContext.Provider>
 
         )
-
     }
-
 }
 
 ReactDOM.render(
