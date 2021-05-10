@@ -1,8 +1,9 @@
 import {FaCodeBranch, FaExclamationTriangle, FaStar, FaUser} from "react-icons/fa";
 import React from "react";
-import ReactTooltip from "react-tooltip";
 import * as PropTypes from "prop-types";
 import Tooltip from "./tooltip";
+import {IoLogoYoutube} from "react-icons/all";
+import Hover from "./hover";
 
 export class ProfileItems extends React.Component {
 
@@ -24,15 +25,18 @@ export class ProfileItems extends React.Component {
                 {name}
             </li>
 
-            {{location} && (<Tooltip>
-                <FaStar size={22}/>
+            {{location} && (<li>
+                <IoLogoYoutube size={22}/>
                 {location}
-            </Tooltip>)}
+            </li>)}
 
-            {{company} && (<li>
+            {{company} && (<li> {company}</li>)}
+
+            {{company} && (<li><Hover renderProps ={(hovering) => <Tooltip  id="company" text="Hi there!" hovering={hovering}>
                 <FaCodeBranch size={22}/>
                 {company}
-            </li>)}
+            </Tooltip>}>
+            </Hover></li>)}
 
             {{followers} && (<li>
                 <FaExclamationTriangle size={22}/>

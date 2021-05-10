@@ -11,7 +11,7 @@ export  default  class Loading extends React.Component{
 
     componentDidMount() {
 
-        window.setInterval( () => {
+        this.interval = window.setInterval( () => {
             const {loading} = this.state;
             console.log(`loading is ${loading}`)
             if (loading === "Loading..."){
@@ -21,6 +21,10 @@ export  default  class Loading extends React.Component{
             }
         }, 1)
 
+    }
+
+    componentWillUnmount() {
+        window.clearInterval(this.interval)
     }
 
     render() {
