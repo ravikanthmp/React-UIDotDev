@@ -2,34 +2,40 @@ import React from "react";
 import {FaUserFriends, FaFighterJet, FaTrophy} from "react-icons/fa"
 import PlayerInput from "./playerInput";
 import {Instructions} from "./instructions";
-import {LocaleContext} from "./localeContext";
+import {Provider as ThemeProvider, Consumer as ThemeConsumer} from "../context/theme";
 
 export default class Battle extends React.Component{
 
+
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            theme : 'light',
+            toggle : this.setState( ({theme}) => ({
+                theme : theme === 'light' ? 'dark' : 'light'
+            }))
+        }
+    }
+
     render() {
         return (
-            <LocaleContext.Provider value = {{locale : 'jp'}}>
+            <ThemeProvider value={this.state}>
                 <React.Fragment>
-                    <h1>Instructions</h1>
-                    <div className='battle-container'>
+                    <ThemeConsumer>
+                        { (data) =>  <div className={data.theme}>
+                            <h1>Instructions</h1>
+                            <button onClick={() => data.toggle}>Toggle mode!</button>
+                            <Logos_EN/>
+                            <div className='battle-container'>
+                                <Instructions/>
 
-                        <LocaleContext.Consumer>
-                            {
-                                (data) => <button onClick={() => this.changeLang(data, 'es')}>Click for spanish</button>}
-                        </LocaleContext.Consumer>
+                            </div>
+                        </div>}
+                    </ThemeConsumer>
 
-                        <LocaleContext.Consumer>
-                            {
-                                (data) =>  <Logos locale={data}/>
-                            }
-                        </LocaleContext.Consumer>
-
-                        <Instructions/>
-
-                    </div>
 
                 </React.Fragment>
-            </LocaleContext.Provider>
+            </ThemeProvider>
 
         )
     }

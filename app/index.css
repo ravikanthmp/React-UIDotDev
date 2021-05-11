@@ -77,3 +77,11 @@ li{
 .bg-gray{
     background: lightgoldenrodyellow;
 }
+
+.dark{
+    background: gray;
+}
+
+.light{
+    background: antiquewhite;
+}
