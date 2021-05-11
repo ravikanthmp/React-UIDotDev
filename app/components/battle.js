@@ -8,26 +8,29 @@ export default class Battle extends React.Component{
 
     render() {
         return (
-            <React.Fragment>
-                <h1>Instructions</h1>
-                <div className='battle-container'>
+            <LocaleContext.Provider value = {{locale : 'jp'}}>
+                <React.Fragment>
+                    <h1>Instructions</h1>
+                    <div className='battle-container'>
 
-                    <LocaleContext.Consumer>
-                        {
-                            (data) => <button onClick={() => this.changeLang(data, 'es')}>Click for spanish</button>}
-                    </LocaleContext.Consumer>
+                        <LocaleContext.Consumer>
+                            {
+                                (data) => <button onClick={() => this.changeLang(data, 'es')}>Click for spanish</button>}
+                        </LocaleContext.Consumer>
 
-                    <LocaleContext.Consumer>
-                        {
-                            (data) =>  <Logos locale={data}/>
-                        }
-                    </LocaleContext.Consumer>
+                        <LocaleContext.Consumer>
+                            {
+                                (data) =>  <Logos locale={data}/>
+                            }
+                        </LocaleContext.Consumer>
 
-                    <Instructions/>
+                        <Instructions/>
 
-                </div>
+                    </div>
 
-            </React.Fragment>
+                </React.Fragment>
+            </LocaleContext.Provider>
+
         )
     }
 
