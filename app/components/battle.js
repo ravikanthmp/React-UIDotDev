@@ -11,7 +11,7 @@ export default class Battle extends React.Component{
         super(props, context);
         this.state = {
             theme : 'light',
-            toggle : this.setState( ({theme}) => ({
+            toggle : () => this.setState( ({theme}) => ({
                 theme : theme === 'light' ? 'dark' : 'light'
             }))
         }
@@ -24,7 +24,7 @@ export default class Battle extends React.Component{
                     <ThemeConsumer>
                         { (data) =>  <div className={data.theme}>
                             <h1>Instructions</h1>
-                            <button onClick={() => data.toggle}>Toggle mode!</button>
+                            <button onClick={data.toggle}>Toggle mode!</button>
                             <Logos_EN/>
                             <div className='battle-container'>
                                 <Instructions/>
