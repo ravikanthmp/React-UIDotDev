@@ -2,6 +2,7 @@ import React from 'react';
 import {fetchReposForUser, fetchUser} from './../utils/util'
 import Loading from "./loading";
 import {ProfileItems} from "./profileItems";
+import {parse} from 'query-string'
 
 export default class Results extends React.Component{
 
@@ -48,7 +49,7 @@ export default class Results extends React.Component{
     }
 
     componentDidMount() {
-        const {player1, player2} = this.props;
+        const {player1, player2} = parse(this.props.location.search);
         Promise.all([this.getUserData(player1), this.getUserData(player2)])
             .then( ([player1Results, player2Results]) => {
                 this.setState({

@@ -7,7 +7,8 @@ import Myform from "./components/myform";
 import PlayerInput from "./components/playerInput";
 import Popular from "./components/popular";
 import {LocaleContext} from "./components/localeContext";
-import {BrowserRouter as Router, Link, Route, NavLink} from "react-router-dom";
+import {BrowserRouter as Router, Link, Route, NavLink, Switch, Redirect} from "react-router-dom";
+import Results from "./components/results";
 
 class Hello extends React.Component {
 
@@ -30,27 +31,56 @@ class Hello extends React.Component {
                     <div className="container">
                         <div>
                             <ul>
+                                {/*<li>*/}
+                                {/*    <NavLink*/}
+                                {/*        activeStyle={this.activeStyle}*/}
+                                {/*        exact*/}
+                                {/*        to="/">Popular</NavLink>*/}
+                                {/*</li>*/}
+                                {/*<li>*/}
+                                {/*    <NavLink*/}
+                                {/*        activeStyle={this.activeStyle}*/}
+                                {/*        to="/battle">Battle</NavLink>*/}
+                                {/*</li>*/}
+                                {/*<li>*/}
+                                {/*    <NavLink*/}
+                                {/*        activeStyle={this.activeStyle}*/}
+                                {/*        to="/coinmarket">Coinmarket</NavLink>*/}
+                                {/*</li>*/}
                                 <li>
                                     <NavLink
                                         activeStyle={this.activeStyle}
-                                        exact
-                                        to="/">Popular</NavLink>
+                                        to="/match">Match</NavLink>
                                 </li>
                                 <li>
                                     <NavLink
                                         activeStyle={this.activeStyle}
-                                        to="/battle">Battle</NavLink>
+                                        to="/match-after-redirect">MatchAfterRedirect</NavLink>
                                 </li>
                                 <li>
                                     <NavLink
                                         activeStyle={this.activeStyle}
-                                        to="/coinmarket">Coinmarket</NavLink>
+                                        to="/not-match">Not Match</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        activeStyle={this.activeStyle}
+                                        to="/also-will-not-match">Also will not match</NavLink>
                                 </li>
                             </ul>
                         </div>
-                        <Route exact path="/" component={Popular}/>
-                        <Route path="/battle" component={Battle}/>
-                        <Route path="/coinmarket" component={CoinMarket}/>
+                        {/*<Route exact path="/" component={Popular}/>*/}
+                        {/*<Route path="/battle" component={Battle}/>*/}
+                        {/*<Route path="/coinmarket" component={CoinMarket}/>*/}
+                        {/*<Route path='/results' component={Results}/>*/}
+                        <Switch>
+                            {/*<Route path='/match' component={Match}/>*/}
+                            <Redirect from="/match" to="/match-after-redirect"/>
+                            <Route path="/match-after-redirect" component={MatchAfterRedirect}/>
+                            <Route component={NotMatch}/>
+                            <Route path='/non-existing-route-2' component={AlsoWillNotMatch}/>
+                        </Switch>
+
                     </div>
                 </LocaleContext.Provider>
         </Router>
@@ -58,6 +88,22 @@ class Hello extends React.Component {
 
         )
     }
+}
+
+function Match(){
+    return (<h3>Match</h3>)
+}
+
+function MatchAfterRedirect(){
+    return (<h3>MatchAfterRedirect</h3>)
+}
+
+function NotMatch(){
+    return (<h3>NotMatch</h3>)
+}
+
+function AlsoWillNotMatch(){
+    return (<h3>AlsoWillNotMatch</h3>)
 }
 
 ReactDOM.render(
