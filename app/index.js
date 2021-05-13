@@ -31,55 +31,27 @@ class Hello extends React.Component {
                     <div className="container">
                         <div>
                             <ul>
-                                {/*<li>*/}
-                                {/*    <NavLink*/}
-                                {/*        activeStyle={this.activeStyle}*/}
-                                {/*        exact*/}
-                                {/*        to="/">Popular</NavLink>*/}
-                                {/*</li>*/}
-                                {/*<li>*/}
-                                {/*    <NavLink*/}
-                                {/*        activeStyle={this.activeStyle}*/}
-                                {/*        to="/battle">Battle</NavLink>*/}
-                                {/*</li>*/}
-                                {/*<li>*/}
-                                {/*    <NavLink*/}
-                                {/*        activeStyle={this.activeStyle}*/}
-                                {/*        to="/coinmarket">Coinmarket</NavLink>*/}
-                                {/*</li>*/}
                                 <li>
                                     <NavLink
                                         activeStyle={this.activeStyle}
-                                        to="/match">Match</NavLink>
+                                        exact
+                                        to="/">Popular</NavLink>
                                 </li>
                                 <li>
                                     <NavLink
                                         activeStyle={this.activeStyle}
-                                        to="/match-after-redirect">MatchAfterRedirect</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        activeStyle={this.activeStyle}
-                                        to="/not-match">Not Match</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        activeStyle={this.activeStyle}
-                                        to="/also-will-not-match">Also will not match</NavLink>
+                                        to="/battle">Battle</NavLink>
                                 </li>
                             </ul>
                         </div>
-                        {/*<Route exact path="/" component={Popular}/>*/}
-                        {/*<Route path="/battle" component={Battle}/>*/}
-                        {/*<Route path="/coinmarket" component={CoinMarket}/>*/}
-                        {/*<Route path='/results' component={Results}/>*/}
                         <Switch>
-                            {/*<Route path='/match' component={Match}/>*/}
-                            <Redirect from="/match" to="/match-after-redirect"/>
-                            <Route path="/match-after-redirect" component={MatchAfterRedirect}/>
-                            <Route component={NotMatch}/>
-                            <Route path='/non-existing-route-2' component={AlsoWillNotMatch}/>
+                            <Route exact path="/" component={Popular}/>
+                            <Route path="/battle" component={Battle}/>
+                            <Route path='/results' component={Results}/>
+                            <Route component={() => (<h3>Not Found bruh!</h3>)}/>
                         </Switch>
+
+
 
                     </div>
                 </LocaleContext.Provider>
@@ -88,22 +60,6 @@ class Hello extends React.Component {
 
         )
     }
-}
-
-function Match(){
-    return (<h3>Match</h3>)
-}
-
-function MatchAfterRedirect(){
-    return (<h3>MatchAfterRedirect</h3>)
-}
-
-function NotMatch(){
-    return (<h3>NotMatch</h3>)
-}
-
-function AlsoWillNotMatch(){
-    return (<h3>AlsoWillNotMatch</h3>)
 }
 
 ReactDOM.render(
