@@ -9,6 +9,7 @@ import Popular from "./components/popular";
 import {LocaleContext} from "./components/localeContext";
 import {BrowserRouter as Router, Link, Route, NavLink, Switch, Redirect} from "react-router-dom";
 import Results from "./components/results";
+import CodeSplitting from "./components/dynamicImports/codesplitting";
 
 class Hello extends React.Component {
 
@@ -42,12 +43,19 @@ class Hello extends React.Component {
                                         activeStyle={this.activeStyle}
                                         to="/battle">Battle</NavLink>
                                 </li>
+                                <li>
+                                    <NavLink
+                                        activeStyle={this.activeStyle}
+                                        to="/code-splitting">Code Splitting</NavLink>
+                                </li>
                             </ul>
+
                         </div>
                         <Switch>
                             <Route exact path="/" component={Popular}/>
                             <Route path="/battle" component={Battle}/>
                             <Route path='/results' component={Results}/>
+                            <Route path='/code-splitting' component={CodeSplitting}/>
                             <Route component={() => (<h3>Not Found bruh!</h3>)}/>
                         </Switch>
 
