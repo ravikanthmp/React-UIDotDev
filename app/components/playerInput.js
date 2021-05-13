@@ -2,17 +2,12 @@ import React from 'react';
 
 export default class PlayerInput extends React.Component{
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            id : this.props.id,
-            username : ""
-        };
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
+    state = {
+        id : this.props.id,
+        username : ""
+    };
 
-    handleChange(e) {
+    handleChange = (e) => {
 
         this.setState((prevState) => {
             return {
@@ -22,7 +17,7 @@ export default class PlayerInput extends React.Component{
         })
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
         console.log(`player has submitted ${this.state.username}`)
         this.props.handleSubmit(this.state.id, this.state.username)

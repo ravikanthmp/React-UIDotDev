@@ -6,15 +6,11 @@ import {Provider as ThemeProvider, Consumer as ThemeConsumer} from "../context/t
 
 export default class Battle extends React.Component{
 
-
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            theme : 'light',
-            toggle : () => this.setState( ({theme}) => ({
-                theme : theme === 'light' ? 'dark' : 'light'
-            }))
-        }
+    state = {
+        theme : 'light',
+        toggle : () => this.setState( ({theme}) => ({
+            theme : theme === 'light' ? 'dark' : 'light'
+        }))
     }
 
     render() {
