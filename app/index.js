@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
-import Battle from "./components/battle";
+
 import CoinMarket from "./components/coinMarket";
 import Myform from "./components/myform";
 import PlayerInput from "./components/playerInput";
-import Popular from "./components/popular";
+
 import {LocaleContext} from "./components/localeContext";
 import {BrowserRouter as Router, Link, Route, NavLink, Switch, Redirect} from "react-router-dom";
-import Results from "./components/results";
+
 import CodeSplitting from "./components/dynamicImports/codesplitting";
+
+const Popular = React.lazy(() => import('./components/popular'))
+const Battle = React.lazy(() => import('./components/battle'))
+const Results = React.lazy(() => import('./components/results'))
 
 class Hello extends React.Component {
 
@@ -51,13 +55,15 @@ class Hello extends React.Component {
                             </ul>
 
                         </div>
-                        <Switch>
-                            <Route exact path="/" component={Popular}/>
-                            <Route path="/battle" component={Battle}/>
-                            <Route path='/results' component={Results}/>
-                            <Route path='/code-splitting' component={CodeSplitting}/>
-                            <Route component={() => (<h3>Not Found bruh!</h3>)}/>
-                        </Switch>
+                       <React.Suspense fallback={() => (<h3>c kdbckb</h3>)}>
+                           <Switch>
+                               <Route exact path="/" component={Popular}/>
+                               <Route path="/battle" component={Battle}/>
+                               <Route path='/results' component={Results}/>
+                               <Route path='/code-splitting' component={CodeSplitting}/>
+                               <Route component={() => (<h3>Not Found bruh!</h3>)}/>
+                           </Switch>
+                       </React.Suspense>
 
 
 
