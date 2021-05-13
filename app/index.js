@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
-import Battle from "./components/battle";
-import CoinMarket from "./components/coinMarket";
-import Myform from "./components/myform";
-import PlayerInput from "./components/playerInput";
-import Popular from "./components/popular";
-import {LocaleContext} from "./components/localeContext";
+import Battle from "./components-legacy/battle";
+import CoinMarket from "./components-legacy/coinMarket";
+import Myform from "./components-legacy/myform";
+import PlayerInput from "./components-legacy/playerInput";
+import Popular from "./components-legacy/popular";
+import {LocaleContext} from "./components-legacy/localeContext";
 import {BrowserRouter as Router, Link, Route, NavLink, Switch, Redirect} from "react-router-dom";
-import Results from "./components/results";
+import Results from "./components-legacy/results";
 
 class Hello extends React.Component {
 
