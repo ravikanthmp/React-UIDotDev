@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css'
 import Theme from "./practise/Theme";
 import Todo from "./practise/todoList";
+import TestUseReduce from "./practise/testUseReduce";
 
 function Hello() {
     return <div>
@@ -15,6 +16,6 @@ function Hello() {
 //     document.getElementById('app')
 // )
 ReactDOM.render(
-    <Todo/>,
+    <TestUseReduce/>,
     document.getElementById('app')
 )
