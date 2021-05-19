@@ -1,68 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css'
-import Battle from "./components/battle";
-import CoinMarket from "./components/coinMarket";
-import Myform from "./components/myform";
-import PlayerInput from "./components/playerInput";
-import Popular from "./components/popular";
-import {LocaleContext} from "./components/localeContext";
-import {BrowserRouter as Router, Link, Route, NavLink, Switch, Redirect} from "react-router-dom";
-import Results from "./components/results";
+import Theme from "./practise/Theme";
+import Todo from "./practise/todoList";
+import TestUseReduce from "./practise/testUseReduce";
 
-class Hello extends React.Component {
-
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            locale : 'it',
-            toggle : (lang) => this.setState( ({locale}) => ({locale : lang}))
-        }
-        this.activeStyle = {
-            color : 'red'
-        };
-
-    }
-
-    render() {
-        const name = this.props.name;
-        const link = this.props.link;
-        return (<Router><LocaleContext.Provider value={this.state}>
-                    <div className="container">
-                        <div>
-                            <ul>
-                                <li>
-                                    <NavLink
-                                        activeStyle={this.activeStyle}
-                                        exact
-                                        to="/">Popular</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        activeStyle={this.activeStyle}
-                                        to="/battle">Battle</NavLink>
-                                </li>
-                            </ul>
-                        </div>
-                        <Switch>
-                            <Route exact path="/" component={Popular}/>
-                            <Route path="/battle" component={Battle}/>
-                            <Route path='/results' component={Results}/>
-                            <Route component={() => (<h3>Not Found bruh!</h3>)}/>
-                        </Switch>
-
-
-
-                    </div>
-                </LocaleContext.Provider>
-        </Router>
-
-
-        )
-    }
+function Hello() {
+    return <div>
+        Hi! from hooks
+    </div>
 }
 
+// ReactDOM.render(
+//     <Theme/>,
+//     document.getElementById('app')
+// )
 ReactDOM.render(
-    <Hello name={"halala"} link={"http://www.google.com"}/>,
+    <TestUseReduce/>,
     document.getElementById('app')
 )
