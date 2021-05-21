@@ -1,7 +1,7 @@
 import React from "react";
 import {FaUserFriends, FaFighterJet, FaTrophy} from "react-icons/fa"
 import PlayerInput from "./playerInput";
-import {Instructions} from "./instructions";
+import Instructions2 from "./instructions";
 import {Provider as ThemeProvider, Consumer as ThemeConsumer} from "../context/theme";
 
 export default class Battle extends React.Component{
@@ -23,7 +23,7 @@ export default class Battle extends React.Component{
                             <button onClick={data.toggle}>Toggle mode!</button>
                             <Logos_EN/>
                             <div className='battle-container'>
-                                <Instructions/>
+                                <Instructions2/>
 
                             </div>
                         </div>}

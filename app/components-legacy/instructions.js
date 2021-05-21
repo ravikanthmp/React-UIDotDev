@@ -1,63 +1,52 @@
 import PlayerInput from "./playerInput";
 import PlayerPreview from "./playerPreview"
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Results from "./results";
-import {BrowserRouter as Router, Route , Link} from 'react-router-dom'
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom'
 
-export class Instructions extends React.Component {
+export default function Instructions2() {
+    const [player1, setPlayer1] = useState(null)
+    const [player2, setPlayer2] = useState(null)
 
-    constructor(props, context) {
-        super(props, context);
-        this.handlePlayerSubmission = this.handlePlayerSubmission.bind(this)
-        this.state = {
-
+    let onSubmit = (id, playername) => {
+        switch (id) {
+            case 'player1':
+                setPlayer1(playername)
+                break;
+            case 'player2':
+                setPlayer2(playername);
+                break;
         }
-        this.onReset = this.onReset.bind(this)
     }
 
-    handlePlayerSubmission(id, playername){
-        this.setState({
-            [id] : playername
-        })
+    let onReset = (id) => {
+        switch (id) {
+            case 'player1':
+                setPlayer1(null)
+                break;
+            case 'player2':
+                setPlayer2(null);
+                break;
+        }
     }
 
-    onReset(player){
-        this.setState({
-            [player] : null
-        })
-    }
-
-    render() {
-        const {player1, player2, battle} = this.state;
-        console.log(`player1 is ` + player1)
-        return (<div><div className='battle-grid'>
-            {player1 ? <PlayerPreview playerName={player1} onReset={() => this.onReset('player1')}/> :
+    return (<div>
+        <div className='battle-grid'>
+            {player1 ? <PlayerPreview playerName={player1} onReset={() => onReset('player1')}/> :
                 <PlayerInput id='player1'
                              playerLabel='player1'
-                             handleSubmit={ (id, playerName) =>  this.handlePlayerSubmission(id, playerName) }/>}
+                             handleSubmit={(id, playerName) => onSubmit(id, playerName)}/>}
 
-            {player2 ? <PlayerPreview playerName={player2} onReset={() => this.onReset('player2')}/> :
+            {player2 ? <PlayerPreview playerName={player2} onReset={() => onReset('player2')}/> :
                 <PlayerInput id='player2'
                              playerLabel='player2'
-                             handleSubmit={ (id, playerName) =>  this.handlePlayerSubmission(id, playerName) }/>}
+                             handleSubmit={(id, playerName) => onSubmit(id, playerName)}/>}
         </div>
-                <div  className='battle-grid grid-centered'>{player1 && player2 && <Link to={
-                    {
-                        pathname : `/results`,
-                        search : `player1=${player1}&player2=${player2}`
-                    }
-                }>Battle!</Link>}
-                </div>
-
-
-
-        </div>)
-        // if (!battle){
-        //     return
-        // }else {
-        //     return (<Results player1={player1} player2={player2} onReset={this.resetBattle}/>)
-        // }
-    }
-
+        <div className='battle-grid grid-centered'>{player1 && player2 && <Link to={
+            {
+                pathname: `/results`,
+                search: `player1=${player1}&player2=${player2}`
+            }
+        }>Battle!</Link>}
+        </div>
+    </div>)
 }
