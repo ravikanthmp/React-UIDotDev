@@ -1,5 +1,5 @@
 import PlayerInput from "./playerInput";
-import PlayerPreview from "./playerPreview"
+import PlayerPreview, {PlayerPreview2} from "./playerPreview"
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Results from "./results";
@@ -29,15 +29,15 @@ export class Instructions extends React.Component {
     }
 
     render() {
-        const {player1, player2, battle} = this.state;
+        const {player1, player2} = this.state;
         console.log(`player1 is ` + player1)
         return (<div><div className='battle-grid'>
-            {player1 ? <PlayerPreview playerName={player1} onReset={() => this.onReset('player1')}/> :
+            {player1 ? <PlayerPreview2 playerName={player1} onReset={() => this.onReset('player1')}/> :
                 <PlayerInput id='player1'
                              playerLabel='player1'
                              handleSubmit={ (id, playerName) =>  this.handlePlayerSubmission(id, playerName) }/>}
 
-            {player2 ? <PlayerPreview playerName={player2} onReset={() => this.onReset('player2')}/> :
+            {player2 ? <PlayerPreview2 playerName={player2} onReset={() => this.onReset('player2')}/> :
                 <PlayerInput id='player2'
                              playerLabel='player2'
                              handleSubmit={ (id, playerName) =>  this.handlePlayerSubmission(id, playerName) }/>}
