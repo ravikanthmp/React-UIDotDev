@@ -10,56 +10,45 @@ import {LocaleContext} from "./components-legacy/localeContext";
 import {BrowserRouter as Router, Link, Route, NavLink, Switch, Redirect} from "react-router-dom";
 import Results from "./components-legacy/results";
 
-class Hello extends React.Component {
+function Hello({name, link}) {
 
-    constructor(props, context) {
-        super(props, context);
-        this.state = {
-            locale : 'it',
-            toggle : (lang) => this.setState( ({locale}) => ({locale : lang}))
-        }
-        this.activeStyle = {
-            color : 'red'
-        };
+    const [state, setState] = React.useState({
+        locale : 'it',
+        toggle : (lang) => this.setState( ({locale}) => ({locale : lang}))
+    })
 
-    }
+    const [activeStyle, setActiveStyle] = React.useState('red');
 
-    render() {
-        const name = this.props.name;
-        const link = this.props.link;
-        return (<Router><LocaleContext.Provider value={this.state}>
-                    <div className="container">
-                        <div>
-                            <ul>
-                                <li>
-                                    <NavLink
-                                        activeStyle={this.activeStyle}
-                                        exact
-                                        to="/">Popular</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        activeStyle={this.activeStyle}
-                                        to="/battle">Battle</NavLink>
-                                </li>
-                            </ul>
-                        </div>
-                        <Switch>
-                            <Route exact path="/" component={Popular}/>
-                            <Route path="/battle" component={Battle}/>
-                            <Route path='/results' component={Results}/>
-                            <Route component={() => (<h3>Not Found bruh!</h3>)}/>
-                        </Switch>
+    return (<Router><LocaleContext.Provider value={state}>
+        <div className="container">
+            <div>
+                <ul>
+                    <li>
+                        <NavLink
+                            activeStyle={activeStyle}
+                            exact
+                            to="/">Popular</NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            activeStyle={activeStyle}
+                            to="/battle">Battle</NavLink>
+                    </li>
+                </ul>
+            </div>
+            <Switch>
+                <Route exact path="/" component={Popular}/>
+                <Route path="/battle" component={Battle}/>
+                <Route path='/results' component={Results}/>
+                <Route component={() => (<h3>Not Found bruh!</h3>)}/>
+            </Switch>
 
 
 
-                    </div>
-                </LocaleContext.Provider>
-        </Router>
+        </div>
+    </LocaleContext.Provider>
+    </Router>)
 
-
-        )
-    }
 }
 
 ReactDOM.render(
